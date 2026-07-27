@@ -184,6 +184,12 @@
   font-size: 0.78rem;
 }
 
+.section__lead {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: var(--text);
+}
+
 .section__head {
   max-width: 920px;
   margin-bottom: 22px;
@@ -305,9 +311,7 @@
 
 .hero h1,
 .hero .hero__text,
-.hero .eyebrow,
-.hero__offer summary,
-.hero__offer-body p {
+.hero .eyebrow {
   color: #fff;
 }
 
@@ -315,9 +319,18 @@
   color: #ecb0ae;
 }
 
-.hero__offer {
-  background: rgba(0,0,0,.25);
+/* затемняющая плашка под текстом баннера (h1 + кнопки) */
+.hero__top {
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius);
+  padding: 28px 30px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.3;
 }
 
 .hero__actions {
@@ -359,62 +372,6 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 10px 14px;
-}
-
-.hero__offer {
-  margin-top: 26px;
-  max-width: 760px;
-  padding: 20px 22px;
-}
-
-.hero__offer summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  cursor: pointer;
-  list-style: none;
-  font-weight: 800;
-  color: var(--text);
-}
-
-.hero__offer summary::-webkit-details-marker {
-  display: none;
-}
-
-.hero__offer summary::after {
-  content: '+';
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  background: var(--surface-2);
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.hero__offer[open] summary::after {
-  content: '−';
-}
-
-.hero__offer-body {
-  display: grid;
-  gap: 16px;
-  padding-top: 18px;
-}
-
-.hero__offer-body h2,
-.hero__offer-body p {
-  margin: 0;
-}
-
-.hero__offer-body p {
-  color: var(--muted);
-}
-
-.hero__offer .hero__badges {
-  margin-top: 2px;
 }
 
 .hero__sidebar {
@@ -1251,6 +1208,12 @@ select:focus {
   padding: 22px 0 34px;
 }
 
+.footer__keys {
+  padding-bottom: 14px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .footer__inner {
   display: flex;
   gap: 16px;
@@ -1307,63 +1270,69 @@ select:focus {
     display: none;
   }
 
-  .hero__top {
+  /* картинка баннера — на .hero__content, плашка с текстом (.hero__top) лежит внутри */
+  .hero__content {
     position: relative;
     overflow: hidden;
     margin: 0 -24px;
-    padding: 0 20px;
+    padding: 20px;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .hero__top::before {
-    content: '';
-    position: absolute;
-    inset: -40px -24px;
-    background-image: url('/images/prew/4x3.webp');
-    background-size: cover;
-    background-position: center;
-    transform: scaleX(1.08);
-    transform-origin: center;
-    filter: blur(4px);
-    z-index: 0;
-  }
-
-  .hero__top::after {
+  .hero__content::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.4) 50%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
+    background-image: url('/images/prew/4x3.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .hero__content::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.5) 100%);
     z-index: 1;
   }
 
-  .hero__top > * {
+  .hero__top {
     position: relative;
     z-index: 2;
+    padding: 16px 14px;
   }
 
-  /* Сбросим стили offer под светлый фон (на мобилке он больше не под оверлеем) */
-  .hero__offer {
-    background: var(--surface);
+  /* потолок 0.92rem, на узких экранах ужимается — иначе «сейчас» уходит на 3-ю строку */
+  .hero h1 {
+    font-size: min(0.92rem, 3.8vw);
+    line-height: 1.35;
+    text-align: center;
   }
 
-  .hero__offer summary {
-    color: var(--text);
-  }
-
-  .hero__offer-body p {
-    color: var(--muted);
-  }
-
+  /* обе кнопки в одну строку: каталог по содержимому, остаток — длинной кнопке */
   .hero__actions {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin: 14px 0 0;
   }
 
   .hero__actions .btn {
-    flex: 1 1 calc(50% - 7px);
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 0.7rem;
+  }
+
+  .hero__actions .btn--primary {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .hero__actions .btn--secondary {
+    flex: 0 0 auto;
   }
 
   .nav {
