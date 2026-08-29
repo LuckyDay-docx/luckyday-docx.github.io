@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CardMedia from '../components/CardMedia.astro';
 import { catalogFaq } from '../data/faq';
 import { contacts } from '../data/contacts';
 import GlobalForm from '../components/GlobalForm.astro';
@@ -60,7 +61,7 @@ const description =
           role="button"
           aria-label="Открыть описание угловой кухни"
         >
-          <div class="card__image card__image--angle" style="background-image: url('/images/угловые/угловые-темная.webp')"></div>
+          <CardMedia slug="uglovaya" eager={true} />
           <div class="card__body">
             <h3>Угловая кухня</h3>
             <p>
@@ -79,7 +80,7 @@ const description =
           role="button"
           aria-label="Открыть описание прямой кухни"
         >
-          <div class="card__image card__image--straight"></div>
+          <CardMedia slug="pryamaya" eager={true} />
           <div class="card__body">
             <h3>Прямая кухня</h3>
             <p>
@@ -98,7 +99,7 @@ const description =
           role="button"
           aria-label="Открыть описание компактной кухни"
         >
-          <div class="card__image card__image--small" style="background-image: url('/images/компактная/компактная-темная.webp')"></div>
+          <CardMedia slug="kompaktnaya" eager={true} />
           <div class="card__body">
             <h3>Компактная кухня</h3>
             <p>
@@ -117,7 +118,7 @@ const description =
           role="button"
           aria-label="Открыть описание кухни в хрущевке"
           >
-          <div class="card__image card__image--khrushchevka"></div>
+          <CardMedia slug="hrushchevka" />
           <div class="card__body">
             <h3>Кухня в хрущевке</h3>
             <p>
@@ -136,7 +137,7 @@ const description =
           role="button"
           aria-label="Открыть описание кухни в маленькой квартире"
         >
-          <div class="card__image card__image--small-flat"></div>
+          <CardMedia slug="malenkaya-kvartira" />
           <div class="card__body">
             <h3>Кухня в маленькой квартире</h3>
             <p>
@@ -155,7 +156,7 @@ const description =
           role="button"
           aria-label="Открыть описание кухни в частном доме"
         >
-          <div class="card__image card__image--house"></div>
+          <CardMedia slug="chastnyy-dom" />
           <div class="card__body">
             <h3>Кухня в частном доме</h3>
             <p>
@@ -174,7 +175,7 @@ const description =
           role="button"
           aria-label="Открыть описание кухни-гостиной"
         >
-          <div class="card__image card__image--gostinaya"></div>
+          <CardMedia slug="kuhnya-gostinaya" />
           <div class="card__body">
             <h3>Кухня-гостиная</h3>
             <p>
@@ -193,7 +194,7 @@ const description =
           role="button"
           aria-label="Открыть описание узкой кухни"
         >
-          <div class="card__image card__image--narrow"></div>
+          <CardMedia slug="uzkaya" />
           <div class="card__body">
             <h3>Узкая кухня</h3>
             <p>
@@ -212,7 +213,7 @@ const description =
           role="button"
           aria-label="Открыть описание квадратной кухни"
         >
-          <div class="card__image card__image--square"></div>
+          <CardMedia slug="kvadratnaya" />
           <div class="card__body">
             <h3>Квадратная кухня</h3>
             <p>
@@ -243,7 +244,7 @@ const description =
       <h3 class="materials__subhead">Материалы для корпуса кухни</h3>
       <div class="cards cards--3">
         <article class="card card--clickable open-modal" data-modal="modal-mat-korpus-ldsp" data-has-media="true" tabindex="0" role="button" aria-label="ЛДСП — материал корпуса">
-          <div class="card__image" style="background-image: url('/images/materials/ldsp.webp')"></div>
+          <CardMedia slug="ldsp" />
           <div class="card__body">
             <h3>ЛДСП</h3>
             <p>Низкая цена, срок 8–10 лет. Минус: рыхлая структура, боится влаги на торцах.</p>
@@ -252,7 +253,7 @@ const description =
         </article>
 
         <article class="card card--clickable open-modal" data-modal="modal-mat-korpus-mdf" data-has-media="true" tabindex="0" role="button" aria-label="МДФ — материал корпуса">
-          <div class="card__image" style="background-image: url('/images/materials/mdf.webp')"></div>
+          <CardMedia slug="mdf" />
           <div class="card__body">
             <h3>МДФ</h3>
             <p>Высокая прочность, экологичнее ЛДСП, срок от 15 лет. Минус: деформация при нагреве.</p>
@@ -261,7 +262,7 @@ const description =
         </article>
 
         <article class="card card--clickable open-modal" data-modal="modal-mat-korpus-massiv" data-has-media="true" tabindex="0" role="button" aria-label="Массив дерева — материал корпуса">
-          <div class="card__image" style="background-image: url('/images/materials/massiv-korpus.webp')"></div>
+          <CardMedia slug="massiv" />
           <div class="card__body">
             <h3>Массив дерева</h3>
             <p>Прочность и престиж. Минус: высокая цена, требует ухода, чувствителен к влажности.</p>
@@ -541,7 +542,7 @@ const description =
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Угловая кухня">
       <button class="modal__close close-modal" type="button" aria-label="Закрыть">×</button>
       <div class="modal__grid" data-has-media="true">
-        <div class="modal__media modal__media--angle" style="background-image: url('/images/угловые/угловые-темная.webp')"></div>
+        <div class="modal__media modal__media--angle"></div>
         <div class="modal__content">
           <p class="eyebrow">Угловая кухня</p>
           <h3>Удобный формат для рационального хранения</h3>
@@ -599,7 +600,7 @@ const description =
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Компактная кухня">
       <button class="modal__close close-modal" type="button" aria-label="Закрыть">×</button>
       <div class="modal__grid" data-has-media="true">
-        <div class="modal__media modal__media--small" style="background-image: url('/images/компактная/компактная-темная.webp')"></div>
+        <div class="modal__media modal__media--small"></div>
         <div class="modal__content">
           <p class="eyebrow">Компактная кухня</p>
           <h3>Если помещение небольшое, важен каждый сантиметр</h3>
@@ -1023,7 +1024,7 @@ const description =
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="ЛДСП — материал корпуса">
       <button class="modal__close close-modal" type="button" aria-label="Закрыть">×</button>
       <div class="modal__grid" data-has-media="true">
-        <div class="modal__media" style="background-image: url('/images/materials/ldsp.webp')"></div>
+        <div class="modal__media" style="background-image: url('/images/kitchens/ldsp/1-lg.webp')"></div>
         <div class="modal__content">
           <p class="eyebrow">ЛДСП — корпус</p>
           <h3>Бюджетная основа под гарнитур</h3>
@@ -1043,7 +1044,7 @@ const description =
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="МДФ — материал корпуса">
       <button class="modal__close close-modal" type="button" aria-label="Закрыть">×</button>
       <div class="modal__grid" data-has-media="true">
-        <div class="modal__media" style="background-image: url('/images/materials/mdf.webp')"></div>
+        <div class="modal__media" style="background-image: url('/images/kitchens/mdf/1-lg.webp')"></div>
         <div class="modal__content">
           <p class="eyebrow">МДФ — корпус</p>
           <h3>Прочная и плотная основа</h3>
@@ -1063,7 +1064,7 @@ const description =
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Массив дерева — материал корпуса">
       <button class="modal__close close-modal" type="button" aria-label="Закрыть">×</button>
       <div class="modal__grid" data-has-media="true">
-        <div class="modal__media" style="background-image: url('/images/materials/massiv-korpus.webp')"></div>
+        <div class="modal__media" style="background-image: url('/images/kitchens/massiv/1-lg.webp')"></div>
         <div class="modal__content">
           <p class="eyebrow">Массив — корпус</p>
           <h3>Премиальная основа на десятилетия</h3>

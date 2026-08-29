@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CardMedia from '../components/CardMedia.astro';
 import { homeFaq } from '../data/faq';
 import { contacts } from '../data/contacts';
 import GlobalForm from '../components/GlobalForm.astro';
@@ -172,7 +173,7 @@ const description =
           role="button"
           aria-label="Открыть описание угловой кухни"
         >
-          <div class="card__image card__image--angle"></div>
+          <CardMedia slug="uglovaya" />
           <div class="card__body">
             <h3>Угловая кухня</h3>
             <p>
@@ -195,7 +196,7 @@ const description =
           role="button"
           aria-label="Открыть описание прямой кухни"
         >
-          <div class="card__image card__image--straight"></div>
+          <CardMedia slug="pryamaya" />
           <div class="card__body">
             <h3>Прямая кухня</h3>
             <p>
@@ -218,7 +219,7 @@ const description =
           role="button"
           aria-label="Открыть описание компактной кухни"
         >
-          <div class="card__image card__image--small"></div>
+          <CardMedia slug="kompaktnaya" />
           <div class="card__body">
             <h3>Компактная кухня</h3>
             <p>
@@ -255,25 +256,25 @@ const description =
 
       <div class="gallery">
         <article class="gallery__item">
-          <div class="gallery__ph gallery__ph--1"></div>
+          <CardMedia slug="uglovaya-sovremennaya" className="gallery__ph" />
           <h3>Угловая кухня в современном стиле</h3>
           <p>Тёмный низ, светлый верх, лаконичная геометрия и чистые линии.</p>
         </article>
 
         <article class="gallery__item">
-          <div class="gallery__ph gallery__ph--2"></div>
+          <CardMedia slug="sovremennyy-interyer" className="gallery__ph" />
           <h3>Современный интерьер кухни</h3>
           <p>Мраморные акценты, встроенная техника и продуманное освещение.</p>
         </article>
 
         <article class="gallery__item">
-          <div class="gallery__ph gallery__ph--3"></div>
+          <CardMedia slug="sovremennyy-stil" className="gallery__ph" />
           <h3>Современный стиль кухни</h3>
           <p>Спокойная палитра и минималистичная композиция фасадов.</p>
         </article>
 
         <article class="gallery__item">
-          <div class="gallery__ph gallery__ph--4"></div>
+          <CardMedia slug="interyer-kvartira" className="gallery__ph" />
           <h3>Интерьер для квартиры</h3>
           <p>Практично, визуально легко и удобно в ежедневном использовании.</p>
         </article>

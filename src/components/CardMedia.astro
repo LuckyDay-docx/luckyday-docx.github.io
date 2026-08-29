@@ -1,0 +1,32 @@
+---
+/**
+ * Фото карточки: при наведении кадры листаются, по клику — страница с крупными фото.
+ * Клик по картинке не открывает модалку карточки (см. .js-gallery-link в main.js).
+ */
+import { cardShots, kitchenBySlug } from '../data/kitchens';
+
+const { slug, eager = false, className = '' } = Astro.props;
+const set = kitchenBySlug[slug];
+const shots = cardShots(slug);
+---
+
+<a
+  class={`card__image js-gallery-link ${className}`}
+  href={`/kitchens/${slug}/`}
+  aria-label={`Смотреть фото: ${set.title}`}
+>
+  {/* кадры 2..N грузятся только при первом наведении — на телефоне не грузятся вовсе */}
+  {shots.map((src, i) => (
+    <img
+      src={i === 0 ? src : undefined}
+      data-src={i === 0 ? undefined : src}
+      alt={i === 0 ? set.title : ''}
+      width="1000"
+      height="750"
+      class={i === 0 ? 'is-active' : ''}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+    />
+  ))}
+  <span class="card__image-count">{shots.length} фото</span>
+</a>

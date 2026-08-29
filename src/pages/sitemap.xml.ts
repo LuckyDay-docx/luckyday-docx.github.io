@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
+import { kitchenSets } from '../data/kitchens';
 
 const pagesDir = join(process.cwd(), 'src', 'pages');
 
@@ -58,7 +59,10 @@ export const GET: APIRoute = async ({ site }) => {
 
   const articlePages = articles.map((article) => `articles/${article.id}`);
 
-  const pages = [...new Set([...staticPages, ...articlePages])].sort();
+  // Страницы фотогалерей (/kitchens/<slug>) — динамический роут, руками
+  const kitchenPages = kitchenSets.map((set) => `kitchens/${set.slug}`);
+
+  const pages = [...new Set([...staticPages, ...articlePages, ...kitchenPages])].sort();
 
   const urls = pages
     .map((page) => {

@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
     opener.addEventListener('click', (e) => {
       // Если клик был по кнопке "Заказать", модалку карточки не открываем
       if (e.target.closest('.js-order')) return;
+      // Клик по фото — переход на страницу с крупными фото, а не модалка
+      if (e.target.closest('.js-gallery-link')) return;
 
       e.preventDefault();
 
@@ -124,8 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Поддержка клавиатуры для карточек
     opener.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        // Если фокус на кнопке "Заказать", не открываем карточку
-        if (document.activeElement && document.activeElement.closest('.js-order')) {
+        // Если фокус на кнопке "Заказать" или на фото, не открываем карточку
+        if (
+          document.activeElement &&
+          document.activeElement.closest('.js-order, .js-gallery-link')
+        ) {
           return;
         }
 
@@ -217,6 +222,66 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       closeMenu();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // =========================================================
+  // ФОТО КАРТОЧЕК: листаем кадры при наведении
+  // =========================================================
+
+  document.querySelectorAll('.js-gallery-link').forEach((box) => {
+    const shots = box.querySelectorAll('img');
+    if (shots.length < 2) return;
+
+    let current = 0;
+    let timer = null;
+
+    const show = (next) => {
+      shots[current].classList.remove('is-active');
+      current = next;
+      shots[current].classList.add('is-active');
+    };
+
+    const start = () => {
+      if (timer) return;
+      // подгружаем остальные кадры при первом наведении
+      shots.forEach((img) => {
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          delete img.dataset.src;
+        }
+      });
+      timer = setInterval(() => show((current + 1) % shots.length), 1200);
+    };
+
+    const stop = () => {
+      clearInterval(timer);
+      timer = null;
+      show(0);
+    };
+
+    box.addEventListener('mouseenter', start);
+    box.addEventListener('mouseleave', stop);
+    box.addEventListener('focus', start);
+    box.addEventListener('blur', stop);
+  });
+
+  // =========================================================
+  // ФОТОГАЛЕРЕЯ СТРАНИЦЫ: миниатюра -> крупный кадр
+  // =========================================================
+
+  document.querySelectorAll('[data-photoset]').forEach((set) => {
+    const main = set.querySelector('[data-photoset-main]');
+    const thumbs = set.querySelectorAll('.photoset__thumb');
+    if (!main || !thumbs.length) return;
+
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => {
+        main.src = thumb.dataset.src;
+        main.alt = `Фото ${i + 1}`;
+        thumbs.forEach((t) => t.classList.remove('is-active'));
+        thumb.classList.add('is-active');
+      });
     });
   });
 

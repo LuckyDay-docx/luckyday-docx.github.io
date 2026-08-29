@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GlobalForm from '../../components/GlobalForm.astro';
+import Schema from '../../components/Schema.astro';
+import { kitchenSets } from '../../data/kitchens';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return kitchenSets.map((set) => ({ params: { slug: set.slug }, props: { set } }));
+}
+
+const { set } = Astro.props;
+
+// N-lg.webp — те же кадры, что на карточке, но целиком; xN-lg.webp — дополнительные фото
+const photos = [
+  ...Array.from({ length: set.shots }, (_, i) => `/images/kitchens/${set.slug}/${i + 1}-lg.webp`),
+  ...Array.from({ length: set.extras }, (_, i) => `/images/kitchens/${set.slug}/x${i + 1}-lg.webp`),
+];
+
+const heading = set.heading || set.title;
+const title = `${heading} — фото и цены | Кухни Оренбург`;
+const description = set.lead;
+const others = kitchenSets.filter((k) => k.slug !== set.slug).slice(0, 6);
+---
+
+<BaseLayout title={title} description={description} image={photos[0]}>
+  <Schema
+    type="BreadcrumbList"
+    breadcrumbs={[
+      { name: 'Главная', item: site.url },
+      { name: 'Каталог', item: `${site.url}/catalog` },
+      { name: set.title, item: `${site.url}/kitchens/${set.slug}` },
+    ]}
+  />
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="/">Главная</a>
+        <span>›</span>
+        <a href="/catalog">Каталог</a>
+        <span>›</span>
+        <span>{set.title}</span>
+      </nav>
+
+      <p class="eyebrow">Фотогалерея</p>
+      <h1>{heading}</h1>
+      <p>{set.lead}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="photoset" data-photoset>
+        <figure class="photoset__stage">
+          <img
+            src={photos[0]}
+            alt={`${set.title} — фото 1`}
+            data-photoset-main
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+
+        {photos.length > 1 && (
+          <div class="photoset__thumbs">
+            {photos.map((src, i) => (
+              <button
+                type="button"
+                class={`photoset__thumb ${i === 0 ? 'is-active' : ''}`}
+                data-src={src}
+                aria-label={`Фото ${i + 1}`}
+              >
+                <img src={src} alt="" loading="lazy" decoding="async" />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="photoset__text">
+        {set.body.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="contacts">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__content">
+          <h2>Рассчитаем вашу кухню</h2>
+          <p>
+            Пришлите размеры или просто опишите помещение — подготовим проект и назовём цену.
+            Замер и дизайн-проект бесплатные.
+          </p>
+        </div>
+        <GlobalForm
+          title="Заявка на расчёт"
+          productName={set.title.toLowerCase()}
+          formName={`Заявка: ${set.title}`}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <h2>Другие решения</h2>
+      </div>
+      <div class="cards cards--3">
+        {others.map((k) => (
+          <article class="card">
+            <a class="card__image js-gallery-link" href={`/kitchens/${k.slug}/`} aria-label={k.title}>
+              <img
+                src={`/images/kitchens/${k.slug}/1.webp`}
+                alt={k.title}
+                width="1000"
+                height="750"
+                class="is-active"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <div class="card__body">
+              <h3>{k.title}</h3>
+              <p>{k.lead}</p>
+              <a class="btn btn--secondary" href={`/kitchens/${k.slug}/`}>Смотреть фото</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
