@@ -275,7 +275,7 @@
 }
 
 .page-hero {
-  padding-top: 42px;
+  padding: 80px 0 44px;
 }
 
 @media (min-width: 1400px) {
@@ -316,6 +316,62 @@
 }
 
 .hero .eyebrow {
+  color: #ecb0ae;
+}
+
+/* =========================================================
+   БАННЕР ВНУТРЕННИХ СТРАНИЦ (.page-hero)
+   Кадр адаптирован из каталожного рендера: широкая полоса 2.39:1,
+   cover доводит её до любой пропорции блока без искажений.
+========================================================= */
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/banners/inner.webp');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.76) 0%,
+    rgba(0, 0, 0, 0.62) 55%,
+    rgba(0, 0, 0, 0.48) 100%
+  );
+  z-index: 1;
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.page-hero h1 {
+  color: #fff;
+}
+
+.page-hero p,
+.page-hero .breadcrumbs,
+.page-hero .breadcrumbs span {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.page-hero .breadcrumbs a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.page-hero .breadcrumbs a:hover {
+  color: #fff;
+}
+
+.page-hero .eyebrow {
   color: #ecb0ae;
 }
 
@@ -697,6 +753,29 @@
 .cta-banner p {
   color: var(--muted);
   margin: 0;
+}
+
+/* фото-баннер: тот же .cta-banner, но с кадром из каталога вместо плашки */
+.cta-banner--photo {
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 240px;
+  padding: 40px 28px;
+  border-color: transparent;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    url('/images/banners/promo.webp');
+  background-size: cover;
+  background-position: center 58%;
+}
+
+.cta-banner--photo p {
+  color: #fff;
+  font-size: 1.15rem;
+  max-width: 620px;
 }
 
 @media (max-width: 720px) {
@@ -1275,6 +1354,21 @@ select:focus {
   .hero::before,
   .hero::after {
     display: none;
+  }
+
+  /* на мобильном блок вытянут по вертикали — широкий кадр зумится в лоскут,
+     поэтому подставляем портретную версию того же рендера */
+  .page-hero::before {
+    background-image: url('/images/banners/inner-mobile.webp');
+    background-position: center;
+  }
+
+  .page-hero::after {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.66) 100%);
+  }
+
+  .page-hero {
+    padding: 42px 0 34px;
   }
 
   /* картинка баннера — на .hero__content, плашка с текстом (.hero__top) лежит внутри */

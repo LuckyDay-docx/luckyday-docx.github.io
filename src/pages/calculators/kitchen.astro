@@ -34,7 +34,7 @@ const description = 'Ориентировочный расчёт стоимос�
       <div class="kitchen-calculator__grid">
         <form class="kitchen-calculator__form" data-calculator-form>
           <div class="kitchen-calculator__group">
-            <h2>Размеры помещения</h2>
+            <h2>Габариты</h2>
 
             <label>
               Ширина кухни, м
@@ -42,8 +42,8 @@ const description = 'Ориентировочный расчёт стоимос�
             </label>
 
             <label>
-              Глубина кухни, м
-              <input type="number" name="depth" min="1" max="8" step="0.1" value="2.4" data-field="depth" />
+              Длина кухни, м
+              <input type="number" name="length" min="1" max="12" step="0.1" value="2.4" data-field="length" />
             </label>
           </div>
 
@@ -72,36 +72,36 @@ const description = 'Ориентировочный расчёт стоимос�
             <label>
               Фасады
               <select name="facade" data-field="facade">
-                <option value="budget">Практичные</option>
-                <option value="standard" selected>Стандартные</option>
-                <option value="premium">Премиальные</option>
+                <option value="ldsp" selected>ЛДСП</option>
+                <option value="mdf_pvh">МДФ в плёнке ПВХ</option>
+                <option value="mdf_emal">МДФ Эмаль</option>
               </select>
             </label>
 
             <label>
               Столешница
               <select name="countertop" data-field="countertop">
-                <option value="laminate" selected>Ламинированная</option>
-                <option value="compact">Компакт-плита</option>
-                <option value="stone">Кварцевая</option>
+                <option value="26" selected>26 мм (не влагостойкая)</option>
+                <option value="38">38 мм (влагостойкая)</option>
+                <option value="compact12">Компакт-плита (12 мм)</option>
               </select>
             </label>
 
             <label>
               Фурнитура
               <select name="hardware" data-field="hardware">
-                <option value="basic">Базовая</option>
-                <option value="standard" selected>Удобная</option>
-                <option value="premium">Премиальная</option>
+                <option value="boyard" selected>Китай (Боярд)</option>
+                <option value="boyard_premium">Китай (Боярд Премиум)</option>
+                <option value="blum">Австрия (Blum)</option>
               </select>
             </label>
 
             <label>
-              Техника
-              <select name="appliances" data-field="appliances">
-                <option value="none">Без техники</option>
-                <option value="basic" selected>Базовый комплект</option>
-                <option value="full">Полный комплект</option>
+              Сантехника
+              <select name="plumbing" data-field="plumbing">
+                <option value="none" selected>Без мойки и смесителя</option>
+                <option value="sink">Мойка</option>
+                <option value="sink_tap">Мойка + смеситель</option>
               </select>
             </label>
 
