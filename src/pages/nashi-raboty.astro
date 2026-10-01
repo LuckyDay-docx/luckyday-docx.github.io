@@ -36,7 +36,7 @@ const worksJson = JSON.stringify(works);
         </div>
         <div class="works-carousel__thumbs">
           {works.map((item, i) => (
-            <button class="works-carousel__thumb{ i === 0 ? ' is-active' : '' }" type="button" data-index={i} aria-label={item.title}>
+            <button class:list={['works-carousel__thumb', { 'is-active': i === 0 }]} type="button" data-index={i} aria-label={item.title}>
               <img src={item.image} alt={item.title} loading="lazy" />
             </button>
           ))}

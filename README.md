@@ -102,7 +102,7 @@ magical-meridian/
 | :-- | :-- | :-- |
 | `/` | `pages/index.astro` | Главная: hero, галерея, квиз, цены, FAQ, форма |
 | `/catalog` | `pages/catalog.astro` | Типы кухонь + FAQ |
-| `/nashi-raboty` | `pages/nashi-raboty.astro` | Портфолио (16 работ, галерея с модалкой) |
+| `/nashi-raboty` | `pages/nashi-raboty.astro` | Портфолио (55 фото, галерея с модалкой) |
 | `/blog` | `pages/blog.astro` | Список статей |
 | `/articles/<slug>` | `pages/articles/[slug].astro` | Страница статьи (из `content/articles`) |
 | `/calculators` | `pages/calculators/index.astro` | Хаб калькуляторов |
