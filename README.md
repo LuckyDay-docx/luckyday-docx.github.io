@@ -170,7 +170,7 @@ image: '/images/blog/.../foto.webp'  # необязательно
 
 Обновление сайта = обычный `git push` в ветку `main` → Cloudflare пересобирает автоматически.
 
-> Файл `.github/workflows/deploy.yml` остался от прежней публикации на **GitHub Pages** и **сейчас не используется**. Его можно удалить.
+> Файл `.github/workflows/deploy.yml` публикует на **GitHub Pages** (`luckyday-docx.github.io`) не сайт, а заглушку: она закрыта от индексации и переадресует на `kuhni-v-orenburge.ru`. Выключить Pages у репозитория вида `<владелец>.github.io` GitHub не даёт. Не удаляйте этот файл, иначе на `github.io` останется старая копия сайта.
 
 ---
 

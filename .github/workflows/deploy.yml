@@ -1,19 +1,19 @@
-name: Deploy to GitHub Pages
+name: GitHub Pages — заглушка
+
+# Сайт работает на Beget (kuhni-v-orenburge.ru). Выключить Pages у репозитория
+# <владелец>.github.io GitHub не даёт, поэтому сюда публикуется не копия сайта,
+# а заглушка: закрыта от индексации и переадресует посетителей на основной домен.
 
 on:
-  # Запуск при каждом пуше в ветку main
   push:
     branches: [main]
-  # Позволяет запускать вручную из вкладки Actions
   workflow_dispatch:
 
-# Права, нужные для деплоя на GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Разрешаем только один одновременный деплой
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -22,13 +22,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Build Astro site
-        uses: withastro/action@v3
+      - name: Собрать заглушку
+        run: |
+          mkdir stub
+          printf 'User-agent: *\nDisallow: /\n' > stub/robots.txt
+          cat > stub/index.html <<'HTML'
+          <!doctype html>
+          <html lang="ru">
+          <head>
+            <meta charset="utf-8">
+            <meta name="robots" content="noindex, nofollow">
+            <title>Кухни Оренбург</title>
+            <link rel="canonical" href="https://kuhni-v-orenburge.ru/">
+            <script>location.replace('https://kuhni-v-orenburge.ru' + location.pathname + location.search + location.hash);</script>
+            <meta http-equiv="refresh" content="0; url=https://kuhni-v-orenburge.ru/">
+          </head>
+          <body>
+            <p>Сайт переехал: <a href="https://kuhni-v-orenburge.ru/">kuhni-v-orenburge.ru</a></p>
+          </body>
+          </html>
+          HTML
+          # Любой старый адрес (например, /catalog/) тоже ведёт на домен
+          cp stub/index.html stub/404.html
+      - uses: actions/upload-pages-artifact@v3
         with:
-          node-version: 22
-        # По умолчанию: устанавливает зависимости, собирает в ./dist и загружает артефакт
+          path: stub
 
   deploy:
     needs: build
