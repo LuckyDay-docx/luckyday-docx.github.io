@@ -34,6 +34,9 @@ const {
       ></textarea>
     </label>
 
+    <!-- Ловушка для ботов: человек это поле не видит и не заполняет -->
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+
     <input type="hidden" name="form_name" value={formName} />
     <input type="hidden" name="page_url" data-page-url />
     <input type="hidden" name="referrer" data-referrer />
@@ -80,7 +83,13 @@ const {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const submitButton = form.querySelector('[type="submit"]');
+        if (submitButton?.disabled) return;
+
         const formData = new FormData(form);
+
+        // Защита от двойной отправки, пока ждём ответ сервера
+        if (submitButton) submitButton.disabled = true;
 
         try {
           const response = await fetch('/api/lead.php', {
@@ -88,7 +97,7 @@ const {
             body: formData,
           });
 
-          const result = await response.json();
+          const result = await response.json().catch(() => ({}));
 
           if (result.success) {
             alert('Спасибо! Мы скоро свяжемся с вами.');
@@ -106,6 +115,8 @@ const {
           }
         } catch (error) {
           alert('Ошибка сети. Попробуйте ещё раз.');
+        } finally {
+          if (submitButton) submitButton.disabled = false;
         }
       });
     });

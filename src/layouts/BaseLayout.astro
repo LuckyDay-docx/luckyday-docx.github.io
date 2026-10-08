@@ -6,14 +6,17 @@ import Schema from '../components/Schema.astro';
 import Analytics from '../components/Analytics.astro';
 import '../styles/globals.css';
 import '../styles/components.css';
-
+import { site, buildVersion } from '../data/site';
 
 const {
   title = 'Кухни Оренбург',
   description = 'Кухни на заказ в Оренбурге',
-  canonical = '',
-  image = '',
+  canonical = new URL(Astro.url.pathname, Astro.site).href,
+  image = site.ogImage,
 } = Astro.props;
+
+// Соцсети и поисковики понимают только абсолютный адрес картинки
+const imageUrl = image ? new URL(image, Astro.site).href : '';
 ---
 
 <!doctype html>
@@ -34,7 +37,7 @@ const {
       title={title}
       description={description}
       canonical={canonical}
-      image={image}
+      image={imageUrl}
     />
     <slot name="head" />
     <Schema type="Organization" />
@@ -53,7 +56,7 @@ const {
     <Footer />
 
     <!-- Общий JS для меню, модалок и скролла -->
-    <script type="module" src="/src/scripts/main.js"></script>
+    <script type="module" src={`/src/scripts/main.js?v=${buildVersion}`}></script>
     <Analytics />
   </body>
 </html>

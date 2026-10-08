@@ -28,8 +28,8 @@ const others = kitchenSets.filter((k) => k.slug !== set.slug).slice(0, 6);
     type="BreadcrumbList"
     breadcrumbs={[
       { name: 'Главная', item: site.url },
-      { name: 'Каталог', item: `${site.url}/catalog` },
-      { name: set.title, item: `${site.url}/kitchens/${set.slug}` },
+      { name: 'Каталог', item: `${site.url}/catalog/` },
+      { name: set.title, item: `${site.url}/kitchens/${set.slug}/` },
     ]}
   />
 
@@ -38,7 +38,7 @@ const others = kitchenSets.filter((k) => k.slug !== set.slug).slice(0, 6);
       <nav class="breadcrumbs" aria-label="Хлебные крошки">
         <a href="/">Главная</a>
         <span>›</span>
-        <a href="/catalog">Каталог</a>
+        <a href="/catalog/">Каталог</a>
         <span>›</span>
         <span>{set.title}</span>
       </nav>

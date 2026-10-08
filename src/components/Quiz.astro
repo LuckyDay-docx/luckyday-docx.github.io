@@ -180,7 +180,7 @@ import GlobalForm from './GlobalForm.astro';
         }
 
         const answerButton = event.target.closest('[data-answer]');
-        if (!answerButton || !isOpen()) return;
+        if (!answerButton || !isOpen() || currentStep >= totalSteps) return;
 
         answers.push(answerButton.dataset.answer || '');
         currentStep += 1;

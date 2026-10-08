@@ -50,7 +50,9 @@ export const GET: APIRoute = async ({ site }) => {
   const baseUrl = site?.toString() ?? 'https://kuhni-v-orenburge.ru';
   const origin = baseUrl.replace(/\/$/, '');
 
-  const normalizeUrl = (path: string) => (path ? `${origin}/${path}` : `${origin}/`);
+  // Страницы лежат как папка/index.html — сервер отдаёт их по адресу со слешем на конце,
+  // а без слеша отвечает редиректом 301. В sitemap кладём конечные адреса.
+  const normalizeUrl = (path: string) => (path ? `${origin}/${path}/` : `${origin}/`);
 
   const staticPages = await collectRoutes(pagesDir);
 
@@ -62,7 +64,9 @@ export const GET: APIRoute = async ({ site }) => {
   // Страницы фотогалерей (/kitchens/<slug>) — динамический роут, руками
   const kitchenPages = kitchenSets.map((set) => `kitchens/${set.slug}`);
 
-  const pages = [...new Set([...staticPages, ...articlePages, ...kitchenPages])].sort();
+  const pages = [...new Set([...staticPages, ...articlePages, ...kitchenPages])]
+    .filter((page) => page !== '404')
+    .sort();
 
   const urls = pages
     .map((page) => {

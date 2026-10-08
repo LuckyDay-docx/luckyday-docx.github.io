@@ -1,3 +1,7 @@
+// Меняется при каждой сборке: добавляем к /src/scripts/*.js и /src/styles/*.css,
+// чтобы после обновления сайта браузеры не брали старые файлы из кэша
+export const buildVersion = Date.now().toString(36);
+
 export const site = {
   name: 'Кухни Оренбург',
   title: 'Кухни на заказ в Оренбурге',

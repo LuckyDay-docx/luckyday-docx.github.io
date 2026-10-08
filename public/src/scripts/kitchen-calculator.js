@@ -64,8 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const getValue = (name) => {
-    const field = root.querySelector(`[name="${name}"]:checked, [name="${name}"]`);
+    // Сначала выбранная радиокнопка/чекбокс. Селектор через запятую не подходит:
+    // querySelector вернёт первый элемент группы по порядку в документе, а не отмеченный.
+    const field =
+      root.querySelector(`[name="${name}"]:checked`) || root.querySelector(`[name="${name}"]`);
     if (!field) return '';
+    if (field.type === 'radio' && !field.checked) return '';
 
     if (field.type === 'checkbox') return field.checked;
     return field.value;
@@ -81,8 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const calculate = () => {
-    const width = Math.max(getNumber(widthInput, 3.2), 1);
-    const length = Math.max(getNumber(lengthInput, 2.4), 1);
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    // Границы те же, что у полей ввода (min=1, max=12)
+    const width = clamp(getNumber(widthInput, 3.2), 1, 12);
+    const length = clamp(getNumber(lengthInput, 2.4), 1, 12);
     const area = width * length;
 
     const layout = getValue('layout') || 'straight';

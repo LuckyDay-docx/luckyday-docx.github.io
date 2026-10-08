@@ -1,21 +1,22 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GlobalForm from '../../components/GlobalForm.astro';
+import { buildVersion } from '../../data/site';
 
 const title = 'Калькулятор кухни';
 const description = 'Ориентировочный расчёт стоимости кухни на заказ по размерам и комплектации.';
 ---
 
 <BaseLayout title={title} description={description}>
-  <link rel="stylesheet" href="/src/styles/kitchen-calculator.css" slot="head" />
-  <script type="module" src="/src/scripts/kitchen-calculator.js" slot="head"></script>
+  <link rel="stylesheet" href={`/src/styles/kitchen-calculator.css?v=${buildVersion}`} slot="head" />
+  <script type="module" src={`/src/scripts/kitchen-calculator.js?v=${buildVersion}`} slot="head"></script>
 
   <section class="page-hero">
     <div class="container">
       <nav class="breadcrumbs" aria-label="Хлебные крошки">
         <a href="/">Главная</a>
         <span>›</span>
-        <a href="/calculators">Калькуляторы</a>
+        <a href="/calculators/">Калькуляторы</a>
         <span>›</span>
         <span>Калькулятор кухни</span>
       </nav>

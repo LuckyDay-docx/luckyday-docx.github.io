@@ -50,7 +50,7 @@ const formattedUpdatedDate = updatedDate
     type="BreadcrumbList"
     breadcrumbs={[
       { name: 'Главная', item: site.url },
-      { name: 'Блог', item: `${site.url}/blog` },
+      { name: 'Блог', item: `${site.url}/blog/` },
       { name: title },
     ]}
   />
@@ -59,7 +59,7 @@ const formattedUpdatedDate = updatedDate
     articleTitle={title}
     articleDescription={description}
     articleDate={pubDate.toISOString()}
-    articleUrl={`${site.url}/articles/${article.id}`}
+    articleUrl={`${site.url}/articles/${article.id}/`}
     articleUpdated={updatedDate?.toISOString()}
     articleImage={image ? `${site.url}${image}` : undefined}
   />
@@ -70,7 +70,7 @@ const formattedUpdatedDate = updatedDate
       <nav class="breadcrumbs" aria-label="Хлебные крошки">
         <a href="/">Главная</a>
         <span>›</span>
-        <a href="/blog">Блог</a>
+        <a href="/blog/">Блог</a>
         <span>›</span>
         <span>{title}</span>
       </nav>
@@ -120,7 +120,7 @@ const formattedUpdatedDate = updatedDate
         </p>
 
         <div class="hero__actions">
-          <a class="btn btn--primary" href="/catalog">Перейти в каталог</a>
+          <a class="btn btn--primary" href="/catalog/">Перейти в каталог</a>
           <a class="btn btn--secondary" href="/#contacts">Оставить заявку</a>
         </div>
       </section>

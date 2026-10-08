@@ -1,9 +1,11 @@
 import type { APIRoute } from 'astro';
 
-export const GET: APIRoute = async () => {
-  // Полный запрет индексации сайта всеми поисковыми роботами.
+export const GET: APIRoute = async ({ site }) => {
+  const sitemap = new URL('/sitemap.xml', site).href;
   const body = `User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: ${sitemap}
 `;
 
   return new Response(body, {

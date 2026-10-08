@@ -30,7 +30,7 @@ const formatDate = (date) =>
     type="ItemList"
     items={sortedArticles.map((a) => ({
       name: a.data.title,
-      url: `${site.url}/articles/${a.id}`,
+      url: `${site.url}/articles/${a.id}/`,
       description: a.data.description,
       date: a.data.pubDate.toISOString(),
     }))}
@@ -72,7 +72,7 @@ const formatDate = (date) =>
                   </p>
                   <h2>{title}</h2>
                   <p>{description}</p>
-                  <a class="btn btn--secondary" href={`/articles/${article.id}`}>
+                  <a class="btn btn--secondary" href={`/articles/${article.id}/`}>
                     Читать статью
                   </a>
                 </div>
